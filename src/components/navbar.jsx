@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import NavbarLists from "./navbarLists"
-import {motion} from 'framer-motion'
+import {delay, motion} from 'framer-motion'
 
         {/* padding affects ssmall screens first, then increases as it goes up */}
 const menuLists =[
@@ -12,6 +12,40 @@ const menuLists =[
     {url: "/portfolio", title:"Portfolio"},
     {url: "/contact", title:"Contact"}
 ]
+const topiconTransition = {
+    isClosed:{
+        x: 0,
+    },
+    isOpened: {
+        backgroundColor: "rgb(255,255,255)",
+        rotate: 45
+    }
+}
+const centericonTransition = {
+    isClosed:{
+        x: 0,
+    },
+    isOpened: {
+        opacity: 0
+    }
+}
+const bottomiconTransition = {
+    isClosed:{
+        x: 0,
+    },
+    isOpened: {
+        backgroundColor: "rgb(255,255,255)",
+        rotate: -45,
+    }
+}
+const iconpageTransition = {
+        isClosed:{
+            y: '-100vh',
+        },
+        isOpened:{
+            y: 0,
+        },
+}
 
 const Navbar = ()=>{
     const [open, setOpen] = useState(false);
@@ -40,20 +74,30 @@ const Navbar = ()=>{
              {/* Menu Icon */}
             <div className="md:hidden">  
                 <button className="w-10 h-8 flex flex-col justify-between relative z-50" onClick={isOpen}>
-                    <motion.div className="w-10 h-1 bg-black rounded">
-
+                    <motion.div className="w-10 h-1 bg-black rounded origin-left" 
+                        variants={topiconTransition}
+                        animate={open ? "isOpened" : "isClosed"}> 
                     </motion.div>
-                    <motion.div className="w-10 h-1 bg-black rounded"></motion.div>
-                    <motion.div className="w-10 h-1 bg-black rounded"></motion.div>
+                        <motion.div className="w-10 h-1 bg-black rounded"
+                        variants={centericonTransition}
+                    animate={open ? "isOpened" : "isClosed"}
+                    ></motion.div>
+                    <motion.div className="w-10 h-1 bg-black rounded origin-left"
+                            variants={bottomiconTransition}
+                            animate={open ? "isOpened" : "isClosed"}></motion.div>
                 </button>
             {/* MENU LIST */}
-            {open && (<div className="absolute top-0 left-0 w-screen h-screen bg-black text-white flex flex-col justify-center items-center gap-10 text-3xl font-semibold z-40">
+            {open && (<motion.div className="absolute top-0 left-0 w-screen h-screen bg-black text-white flex flex-col justify-center items-center gap-10 text-3xl font-semibold z-40" 
+                variants={iconpageTransition}
+                animate={"isOpened"}
+                initial={"isClosed"}
+              >
                 {menuLists.map(menuList=>(
                     <Link href={menuList.url} key={menuList.title}>
                         {menuList.title}
                     </Link>
                 ))}
-            </div>)}
+            </motion.div>)}
             </div>
             {/* Navigation Icons Wider Screen */}
             <div className="hidden md:flex gap-3 w-1/3 justify-center">

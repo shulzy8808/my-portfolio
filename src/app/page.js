@@ -11,7 +11,7 @@ export default function Home() {
           <div className="h-1/2 flex flex-col gap-10 items-center justify-center lg:h-full lg:w-1/2">
           {/* HEADER */}
           <h1 className="font-bold text-2xl md:text-5xl">
-            KNOWLEDGE AND CREATIVITY MEETS CODE, CREATING A TIMELESS DIGITAL WORLD 
+            KNOWLEDGE AND CREATIVITY MEETS CODE, CREATING A TIMELESS DIGITAL WORLD. 
           </h1>
           {/* DESC */}
           <p className="md:text-xl">

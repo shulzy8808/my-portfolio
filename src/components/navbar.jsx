@@ -3,7 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import NavbarLists from "./navbarLists"
-import {delay, motion} from 'framer-motion'
+import {color, delay, motion} from 'framer-motion'
 
         {/* padding affects ssmall screens first, then increases as it goes up */}
 const menuLists =[
@@ -17,7 +17,7 @@ const topiconTransition = {
         x: 0,
     },
     isOpened: {
-        backgroundColor: "rgb(255,255,255)",
+        backgroundColor: "rgb(230,230,255)",
         rotate: 45
     }
 }
@@ -34,7 +34,7 @@ const bottomiconTransition = {
         x: 0,
     },
     isOpened: {
-        backgroundColor: "rgb(255,255,255)",
+        backgroundColor: "rgb(230,230,255)",
         rotate: -45,
     }
 }
@@ -44,9 +44,23 @@ const iconpageTransition = {
         },
         isOpened:{
             y: 0,
+            transition:{
+                when: "beforeChildren",
+                staggerChildren: 0.2,
+            }
         },
 }
-
+const iconinfoTransition ={
+    isClosed:{
+        y: 10,
+        opacity: 0
+    },
+    isOpened: {
+        y: 0,
+        opacity: 1,
+        color: "rgb(230,230,255)",
+    }
+}
 const Navbar = ()=>{
     const [open, setOpen] = useState(false);
     const isOpen =()=>{
@@ -93,9 +107,13 @@ const Navbar = ()=>{
                 initial={"isClosed"}
               >
                 {menuLists.map(menuList=>(
-                    <Link href={menuList.url} key={menuList.title}>
-                        {menuList.title}
-                    </Link>
+                    <motion.div key={menuList.title} 
+                    variants={iconinfoTransition}
+                    > 
+                        <Link href={menuList.url}>
+                            {menuList.title}
+                        </Link>
+                    </motion.div>
                 ))}
             </motion.div>)}
             </div>
